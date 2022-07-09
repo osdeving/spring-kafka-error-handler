@@ -1,4 +1,4 @@
-# Spring Kafka Erro Handler POCs
+# Spring Kafka Error Handler POCs
 
 # Introdução
 
