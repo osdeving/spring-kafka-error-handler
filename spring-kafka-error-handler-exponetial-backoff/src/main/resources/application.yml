@@ -1,0 +1,82 @@
+spring:
+  profiles:
+    active: local
+app:
+  topics:
+    retry: 'words.batch.retry'
+    dlq: 'words.batch.dlq'
+    main: 'words.batch'
+
+---
+
+spring:
+  profiles: local
+  output:
+    ansi:
+      enabled: ALWAYS
+  application:
+    name: BatchKafkaConsumerApplication
+  kafka:
+    template:
+      default-topic: words.batch
+    listener:
+      ack-mode: manual
+    consumer:
+      bootstrap-servers: localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: words-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+  producer:
+    bootstrap-servers: localhost:9092
+    key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+---
+
+spring:
+  profiles: preprod
+  output:
+    ansi:
+      enabled: ALWAYS
+  application:
+    name: BatchKafkaConsumerApplication
+  kafka:
+    listener:
+      ack-mode: manual
+    consumer:
+      bootstrap-servers: localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: words-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+  producer:
+    bootstrap-servers: localhost:9092
+    key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+---
+
+spring:
+  profiles: prod
+  output:
+    ansi:
+      enabled: ALWAYS
+  application:
+    name: BatchKafkaConsumerApplication
+  kafka:
+    listener:
+      ack-mode: manual
+    consumer:
+      bootstrap-servers: localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: words-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+  producer:
+    bootstrap-servers: localhost:9092
+    key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    value-serializer: org.apache.kafka.common.serialization.StringSerializer
