@@ -45,6 +45,7 @@ A quarta mensagem ira falhar, então fara 10 tentativas, sempre buscando um lote
 
 Após falhar 10 vezes, vai desistir do record 'problematico' e ira buscar as 3 ultimas mensagens e, dessa vez, processando com sucesso!
 
+No módulo com "custom error handler", o comportamento padrão - 10 tentativas sem delay - é mudado para 2 tentativas com um delay de 5 segundos entre elas.
 
 O codigo esta baseado nesse tutorial:
 
