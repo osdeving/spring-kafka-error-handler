@@ -16,7 +16,7 @@ docker-compose up -d
 
 Para abrir a UI do kafka, acesse:
 
-`http://localhost:3030`
+- http://localhost:3030
 
 ## Testando
 
@@ -48,13 +48,13 @@ Após falhar 10 vezes, vai desistir do record 'problematico' e ira buscar as 3 u
 
 O codigo esta baseado nesse tutorial:
 
-https://www.codewithdilip.com/articles/springboot/batchconsumer_erorhandling
+- https://www.codewithdilip.com/articles/springboot/batchconsumer_erorhandling
 
 Temos outros exemplos aqui tambem:
 
-https://github.com/rlanhellas/tdc2021-consumer-kafka-resiliente-retry-simples
-https://github.com/rlanhellas/tdc2021-consumer-kafka-resiliente-deadletter
-https://github.com/rlanhellas/tdc2021-consumer-kafka-resiliente-retry-seletivo
+- https://github.com/rlanhellas/tdc2021-consumer-kafka-resiliente-retry-simples
+- https://github.com/rlanhellas/tdc2021-consumer-kafka-resiliente-deadletter
+- https://github.com/rlanhellas/tdc2021-consumer-kafka-resiliente-retry-seletivo
 
 ## Consideraçoes
 
