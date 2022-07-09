@@ -9,6 +9,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <modules>
         <module>spring-kafka-batch-default-error-handler</module>
+        <module>spring-kafka-batch-custom-error-handler</module>
     </modules>
 
     <parent>
