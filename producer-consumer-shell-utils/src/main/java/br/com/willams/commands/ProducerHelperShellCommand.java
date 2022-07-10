@@ -7,11 +7,15 @@ import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
+import org.springframework.util.concurrent.ListenableFuture;
+import org.springframework.util.concurrent.ListenableFutureCallback;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 @ShellComponent
 @Slf4j
@@ -26,12 +30,45 @@ public class ProducerHelperShellCommand {
         kafkaTemplate.send(topic, msg).get();
     }
 
+    @ShellMethod("producer kafka message")
+    public void prodrand(String topic, int nr) throws ExecutionException, InterruptedException {
+        for(int i = 0; i < nr; i++) {
+            sendMessages(topic, i + UUID.randomUUID().toString());
+        }
+    }
+
     @ShellMethod("get last offset")
     public void lastoff(String topic) throws ExecutionException, InterruptedException {
 
         Map<Integer, Long> endingOffsets = getEndingOffsets("localhost:9092", topic);
         for (var entry : endingOffsets.entrySet())
             System.out.println("For partition: " + entry.getKey() + ", last offset is: " + entry.getValue());
+    }
+
+
+
+
+    public void sendMessages(String topic, Object model) {
+        ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send(topic, model);
+
+        future.addCallback(new ListenableFutureCallback() {
+            @Override
+            public void onSuccess(Object result) {
+
+            }
+
+            @Override
+            public void onFailure(Throwable ex) {
+                log.error("Unable to send message - data {}", ex);
+                throw new RuntimeException(ex);
+            }
+        });
+
+        try {
+            future.get(30, TimeUnit.SECONDS);
+        } catch(Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @SuppressWarnings("unchecked")
