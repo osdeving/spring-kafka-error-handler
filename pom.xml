@@ -12,6 +12,7 @@
         <module>spring-kafka-batch-custom-error-handler</module>
         <module>spring-kafka-error-handler-exponetial-backoff</module>
         <module>retry-dlq-and-parallel-consumer</module>
+        <module>producer-consumer-shell-utils</module>
     </modules>
 
     <parent>

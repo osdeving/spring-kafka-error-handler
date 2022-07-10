@@ -1,0 +1,7 @@
+spring:
+  output:
+    ansi:
+    enabled: ALWAYS
+
+  main:
+    allow-circular-references: true
