@@ -33,7 +33,7 @@ public class ProducerHelperShellCommand {
     @ShellMethod("producer kafka message")
     public void prodrand(String topic, int nr) throws ExecutionException, InterruptedException {
         for(int i = 0; i < nr; i++) {
-            sendMessages(topic, i + UUID.randomUUID().toString());
+            sendMessages(topic, i + " " + UUID.randomUUID().toString());
         }
     }
 

@@ -16,16 +16,16 @@ import org.springframework.kafka.listener.DefaultErrorHandler;
 @Slf4j
 public class KafkaConsumerConfig {
     private final KafkaProperties kafkaProperties;
-    private final DefaultErrorHandler errorHandler;
+  //  private final DefaultErrorHandler errorHandler;
 
-    public KafkaConsumerConfig(KafkaProperties kafkaProperties, DefaultErrorHandler errorHandler) {
+    public KafkaConsumerConfig(KafkaProperties kafkaProperties) {
         this.kafkaProperties = kafkaProperties;
-        this.errorHandler = errorHandler;
+    //    this.errorHandler = errorHandler;
     }
 
     @Bean
-    @ConditionalOnMissingBean(name = "batchKafkaListenerContainerFactory")
-    ConcurrentKafkaListenerContainerFactory<?, ?> batchKafkaListenerContainerFactory(
+    @ConditionalOnMissingBean(name = "kafkaListenerContainerFactory")
+    ConcurrentKafkaListenerContainerFactory<?, ?> kafkaListenerContainerFactory(
             ConcurrentKafkaListenerContainerFactoryConfigurer configurer,
             ObjectProvider<ConsumerFactory<Object, Object>> kafkaConsumerFactory) {
 
@@ -34,8 +34,8 @@ public class KafkaConsumerConfig {
         var defaultConsumerFactory = new DefaultKafkaConsumerFactory<>(this.kafkaProperties.buildConsumerProperties());
         configurer.configure(factory, kafkaConsumerFactory.getIfAvailable(() -> defaultConsumerFactory));
 
-        factory.setBatchListener(true);
-        factory.setCommonErrorHandler(errorHandler);
+        //factory.setBatchListener(true);
+       // factory.setCommonErrorHandler(errorHandler);
 
         return factory;
     }
