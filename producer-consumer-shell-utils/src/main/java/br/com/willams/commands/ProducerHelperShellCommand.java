@@ -30,7 +30,7 @@ public class ProducerHelperShellCommand {
         kafkaTemplate.send(topic, msg).get();
     }
 
-    @ShellMethod("producer kafka message")
+    @ShellMethod("producer kafka with random message")
     public void prodrand(String topic, int nr) throws ExecutionException, InterruptedException {
         for(int i = 0; i < nr; i++) {
             sendMessages(topic, i + " " + UUID.randomUUID().toString());
